@@ -1,24 +1,24 @@
 @echo off
 setlocal
 
-read -p "Would you like to use the default certificate (not recommended for production)? (y/n)" DEFAULT
+set /p DEFAULT=Would you like to use the default certificate (not recommended for production)? (y/n)
 
 echo -e "\n"
 
-if [[ "$DEFAULT" == "y" ]]; then
-  read -p "This will delete the existing certificate if present. Are you sure? Type YES to confirm: " CONFIRM
+if "%DEFAULT%"=="y" (
+  set /p CONFIRM=This will delete the existing certificate if present. Are you sure? Type YES to confirm:
   echo -e "\n"
 
-  if [[ "$CONFIRM" != "YES" ]]; then
+  if "%CONFIRM%"=="YES" (
     echo Using default certificate. Remember to use your own certificate when moving to production!
     del cert\server.crt
     del cert\server.key
     copy cert\default\server.crt cert\
     copy cert\default\server.key cert\
-  fi
-fi
+  )
+)
 
-echo docker build -t bla --load .
+echo docker build -t asdf --load .
 
 if errorlevel 1 (
     echo Docker build failed. Exiting.
@@ -26,10 +26,9 @@ if errorlevel 1 (
     exit /b 1
 )
 
-docker network create blanetwork >nul
+docker network create asdf 2>nul
 
-
-docker run --detach --name="bla" -p 3000:3000 --network=blanetwork bla
+echo docker run --detach --name="asdf" -p 3000:3000 --network=asdf asdf
 
 endlocal
 pause
