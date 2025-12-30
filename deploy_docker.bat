@@ -3,11 +3,11 @@ setlocal
 
 set /p DEFAULT=Would you like to use the default certificate (not recommended for production)? (y/n)
 
-echo -e "\n"
+
 
 if "%DEFAULT%"=="y" (
   set /p CONFIRM=This will delete the existing certificate if present. Are you sure? Type YES to confirm:
-  echo -e "\n"
+
 
   if "%CONFIRM%"=="YES" (
     echo Using default certificate. Remember to use your own certificate when moving to production!
